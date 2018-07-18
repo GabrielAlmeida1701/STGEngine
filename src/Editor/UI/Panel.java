@@ -11,7 +11,7 @@ import java.util.UUID;
 import javax.swing.JPanel;
 
 import Base.Main;
-import Utils.EditorDefaults;
+import Utils.*;
 
 @SuppressWarnings("serial")
 public class Panel extends JPanel {

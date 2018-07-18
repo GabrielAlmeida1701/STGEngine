@@ -1,4 +1,4 @@
-package Editor.Views;
+package Editor.WindowsType;
 
 import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
@@ -8,12 +8,12 @@ import javax.swing.JInternalFrame;
 import javax.swing.Timer;
 
 @SuppressWarnings("serial")
-public class Window extends JInternalFrame implements ComponentListener {
+public class BaseWindow extends JInternalFrame implements ComponentListener {
 
 	private Timer timer;
 	private boolean isResizing;
 	
-	public Window(String wName) {
+	public BaseWindow(String wName) {
 		super(wName);
 		addComponentListener(this);
 		

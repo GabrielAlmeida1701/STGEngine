@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import CoreGame.Game;
 import CoreGame.MapTileCtrl;
 import Editor.UI.Button;
-import Editor.UI.Panel;
+import Editor.WindowsType.Window;
 import STG_Object.Tile;
 import Utils.Console;
 
@@ -23,18 +23,14 @@ public class HierarchyView extends Window {
 	private JButton[] menus = new JButton[4];
 	private List<Button> gameObjs = new ArrayList<>();
 	
-	private Panel bg;
-	
 	public HierarchyView() {
 		super("Hierarchy");
 		
 		setLayout(null);
-		setSize(210,400);
+		setSize(210,370);
 		
-		bg = new Panel();
 		bg.setSize(210, 400);
 		bg.setLocation(0, 30);
-		add(bg);
 
 		for(int i=0; i<menus.length; i++) {
 			menus[i] = new JButton(labels[i]);
@@ -45,7 +41,6 @@ public class HierarchyView extends Window {
 		}
 
 		me = this;
-		LoadHierarchy();
 	}
 	
 	public void LoadHierarchy() {
@@ -55,6 +50,7 @@ public class HierarchyView extends Window {
 		
 		if(counts[1] != map.frTiles.size()) {
 			bg.clear();
+			gameObjs.clear();
 			int i = 0;
 			for(Tile t : map.frTiles) {
 				@SuppressWarnings("unused")
@@ -64,10 +60,11 @@ public class HierarchyView extends Window {
 				b.SetSize(getWidth()-5, 20);
 				b.AddAction(() -> {
 					Console.log(t.name + " Selected");
+					
 					/*map.frTiles.remove(t);
 					gameObjs.remove(b);
 					bg.remove(b.uuid);*/
-				}); 
+				});
 				gameObjs.add(b);
 				bg.add(b);
 				i++;
@@ -78,6 +75,8 @@ public class HierarchyView extends Window {
 	
 	protected void OnWindowResize() {
 		if(me == null) return;
+		super.OnWindowResize();
+		
 		for(int i=0; i<menus.length; i++) {
 			menus[i].setLocation(i*((getWidth()-10)/4), 0);
 			menus[i].setSize(((getWidth()-10)/4), 20);
@@ -86,11 +85,9 @@ public class HierarchyView extends Window {
 		
 		int i=0;
 		for(Button j : gameObjs) {
-			j.SetPosition(0, 40 + i*20);
+			j.SetPosition(0, i*21);
 			j.SetSize(getWidth()-5, 20);
 			i++;
 		}
-		
-		bg.repaint();
 	}
 }

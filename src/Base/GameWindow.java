@@ -14,7 +14,6 @@ public class GameWindow extends JFrame {
 	public static boolean isPlaying;
 	
 	public GameWindow(){
-        
         GameBaseConfigs configs = GameSettings.GetGameBaseConfigs();
         
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

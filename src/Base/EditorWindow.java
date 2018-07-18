@@ -31,7 +31,7 @@ public class EditorWindow extends JFrame {
         setTitle("Story Maker Editor -- Current Project: " + gameConfig.gameName);
         
         OpenGameWindow();
-        OpenHierarchyPanel();
+        OpenHierarchyWindow();
         
         setPreferredSize(new Dimension(600, 500));
         
@@ -46,10 +46,13 @@ public class EditorWindow extends JFrame {
     	JMenu window = new JMenu("Window");
     	JMenuItem game = new JMenuItem("Game");
     	JMenuItem hier = new JMenuItem("Hierarchy");
+    	JMenuItem prop = new JMenuItem("Properties");
     	game.addActionListener((ActionEvent) -> OpenGameWindow());
-    	hier.addActionListener((ActionListener) -> OpenHierarchyPanel());
+    	hier.addActionListener((ActionListener) -> OpenHierarchyWindow());
+    	prop.addActionListener((ActionEvent) -> OpenPropertiesWindow());
     	window.add(game);
     	window.add(hier);
+    	window.add(prop);
     	
     	JMenu gameM = new JMenu("Game");
     	JMenuItem play = new JMenuItem("Play");
@@ -85,7 +88,7 @@ public class EditorWindow extends JFrame {
     }
     
     HierarchyView hv;
-    private void OpenHierarchyPanel() {
+    private void OpenHierarchyWindow() {
     	if(hv == null) hv = new HierarchyView();
     	else {
     		hv = null;
@@ -93,5 +96,16 @@ public class EditorWindow extends JFrame {
     	}
     	
         add(hv);
+    }
+    
+    PropertiesView pv;
+    private void OpenPropertiesWindow() {
+    	if(pv == null) pv = new PropertiesView();
+    	else {
+    		pv = null;
+    		pv = new PropertiesView();
+    	}
+    	
+        add(pv);
     }
 }

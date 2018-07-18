@@ -1,11 +1,12 @@
 package Editor.Views;
 
 import Base.GamePanel;
+import Editor.WindowsType.BaseWindow;
 import GameFileSystem.GameBaseConfigs;
 import Utils.*;
 
 @SuppressWarnings("serial")
-public class GameView extends Window {
+public class GameView extends BaseWindow {
 
 	private GamePanel gamePanel;
 	
