@@ -1,14 +1,19 @@
 package STG_Object;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
 import Components.Component;
-import Utils.*;
+import Utils.EditorDefaults;
+import Utils.MainSystem;
+import Utils.Vector2;
 
 public class Tile {
     
@@ -17,6 +22,8 @@ public class Tile {
     public boolean collider;
     public boolean useGravity;
     public String name;
+    
+    public boolean isSelected;
     
     private List<Component> components = new ArrayList<>();
     
@@ -84,6 +91,7 @@ public class Tile {
     
     public void Render(Graphics g){
     	AffineTransform at = new AffineTransform();
+    	Graphics2D g2 = (Graphics2D)g;
     	
     	Vector2 
     	fPos = Vector2.add(MainSystem.Offset, transform.position);
@@ -93,6 +101,23 @@ public class Tile {
     	at.scale(transform.scale.x, transform.scale.y);
     	
     	at.translate(-sprite.getWidth()/2, -sprite.getHeight()/2);
-    	((Graphics2D)g).drawImage(sprite, at, null);
+    	g2.drawImage(sprite, at, null);
+    	
+    	if(isSelected) {
+    		Color tmp = g2.getColor();
+    		
+    		g2.setStroke(EditorDefaults.gameViewStroke);
+    		g2.setColor(EditorDefaults.selectObjGameView);
+    		
+    		g2.drawOval(
+    				(int)(fPos.x-(sprite.getWidth()/2 * transform.scale.x)) - 2,
+    				(int)(fPos.y-(sprite.getHeight()/2 * transform.scale.y)) - 2,
+    				(int)(sprite.getWidth() * transform.scale.x) + 4,
+    				(int)(sprite.getHeight() * transform.scale.y) + 4
+    			);
+    		
+    		g2.setStroke(EditorDefaults.defaultEditorStroke);
+    		g2.setColor(tmp);
+    	}
     }
 }

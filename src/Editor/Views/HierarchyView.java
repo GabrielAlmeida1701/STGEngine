@@ -34,6 +34,7 @@ public class HierarchyView extends Window {
 		bg.setLocation(0, 20);
 
 		bg.SetAction(() -> {
+			if(selectedTile != null) selectedTile.isSelected = false;
 			selectedTile = null;
 			selectedID = -1;
 			
@@ -67,6 +68,7 @@ public class HierarchyView extends Window {
 				b.SetPosition(0, i*21);
 				b.SetSize(getWidth()-5, 20);
 				b.AddAction(() -> {
+					t.isSelected = true;
 					selectedTile = t;
 					selectedID = id;
 					PropertiesView.me.Reload();

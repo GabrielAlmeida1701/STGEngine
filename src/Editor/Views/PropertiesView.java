@@ -27,6 +27,7 @@ public class PropertiesView extends Window {
 		if(HierarchyView.selectedTile == null) return;
 		
 		Tile t = HierarchyView.selectedTile;
+		
 		g.drawString(t.name, 15, 15);
 		g.drawString("Postition: " + t.transform.position.toString(), 15, 25);
 		g.drawString("Angle: " + t.transform.angle, 15, 35);
