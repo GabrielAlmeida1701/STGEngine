@@ -11,12 +11,13 @@ import CoreGame.MapTileCtrl;
 import Editor.UI.Button;
 import Editor.WindowsType.Window;
 import STG_Object.Tile;
-import Utils.Console;
 
 @SuppressWarnings("serial")
 public class HierarchyView extends Window {
 
 	public static HierarchyView me;
+	public static Tile selectedTile = null;
+	public static int selectedID = -1;
 	
 	private final String[] labels = {"Back", "Game", "Front", "UI"};
 	private int[] counts = new int[4];
@@ -29,9 +30,17 @@ public class HierarchyView extends Window {
 		setLayout(null);
 		setSize(210,370);
 		
-		bg.setSize(210, 400);
-		bg.setLocation(0, 30);
+		bg.setSize(210, 350);
+		bg.setLocation(0, 20);
 
+		bg.SetAction(() -> {
+			selectedTile = null;
+			selectedID = -1;
+			
+			if(PropertiesView.me != null)
+				PropertiesView.me.Reload();
+		});
+		
 		for(int i=0; i<menus.length; i++) {
 			menus[i] = new JButton(labels[i]);
 			menus[i].setLocation(i*((getWidth()-10)/4), 0);
@@ -53,17 +62,18 @@ public class HierarchyView extends Window {
 			gameObjs.clear();
 			int i = 0;
 			for(Tile t : map.frTiles) {
-				@SuppressWarnings("unused")
 				int id = i;
 				Button b = new Button(t.name);
 				b.SetPosition(0, i*21);
 				b.SetSize(getWidth()-5, 20);
 				b.AddAction(() -> {
-					Console.log(t.name + " Selected");
-					
+					selectedTile = t;
+					selectedID = id;
+					PropertiesView.me.Reload();
 					/*map.frTiles.remove(t);
 					gameObjs.remove(b);
 					bg.remove(b.uuid);*/
+					bg.repaint();
 				});
 				gameObjs.add(b);
 				bg.add(b);

@@ -1,6 +1,8 @@
 package Base;
 
 import java.awt.Dimension;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -8,13 +10,15 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.WindowConstants;
 
-import Editor.Views.*;
+import Editor.Views.GameView;
+import Editor.Views.HierarchyView;
+import Editor.Views.PropertiesView;
 import GameFileSystem.GameBaseConfigs;
 import GameFileSystem.GameSettings;
 import Utils.MainSystem;
 
 @SuppressWarnings("serial")
-public class EditorWindow extends JFrame {
+public class EditorWindow extends JFrame implements ComponentListener {
     
     public GameBaseConfigs gameConfig;
     
@@ -32,6 +36,7 @@ public class EditorWindow extends JFrame {
         
         OpenGameWindow();
         OpenHierarchyWindow();
+        OpenPropertiesWindow();
         
         setPreferredSize(new Dimension(600, 500));
         
@@ -108,4 +113,12 @@ public class EditorWindow extends JFrame {
     	
         add(pv);
     }
+
+    public void componentResized(ComponentEvent ce) {
+    	//Change child windows size
+    }
+    
+	public void componentHidden(ComponentEvent ce) {}
+	public void componentMoved(ComponentEvent ce) {}
+	public void componentShown(ComponentEvent ce) {}
 }

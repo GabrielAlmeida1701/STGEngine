@@ -61,8 +61,9 @@ public class Input implements MouseListener, MouseInputListener, MouseMotionList
 		mouseBnts[e.getButton() - 1] = false;
 	}
 
+	
 	//STG Engine Functions
-	//Mouse Button Hold
+	
 	public static boolean GetMouseButton(int bnt) {
 		if(bnt > 2) return false;
 		return mouseBnts[bnt];

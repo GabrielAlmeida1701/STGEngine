@@ -19,6 +19,7 @@ public class TestLvl extends MapTileCtrl {
 		
 		Tile tile2 = new Tile(0, "tst2", "tst.png");
 		tile2.transform.position = new Vector2(150, 100);
+		tile2.transform.angle = 45f;
 		
 		frTiles.add(tile);
 		frTiles.add(tile2);

@@ -57,7 +57,7 @@ public class Button extends UIElement {
 	}
 	
 	public void Draw(Graphics2D g) {
-		BufferedImage img = (canSelect && isSelected)? selected : normal;
+		BufferedImage img = (isSelected)? selected : normal;
 		g.drawRect(
 				rect.position.x,
 				rect.position.y,
@@ -85,6 +85,7 @@ public class Button extends UIElement {
 	
 	public void MouseClick(int mBnt) {
 		super.MouseClick(mBnt);
+		isSelected = mouseHover;
 		if(!mouseHover) return;
 		
 		for(Action a : actions) a.run();
@@ -100,7 +101,8 @@ public class Button extends UIElement {
 	}
 	
 	private void LoadSprites() {
-		selected = MainSystem.LoadSpriteAsset("bg.png");
+		selected = new BufferedImage(1,1,BufferedImage.TYPE_INT_BGR);
+		selected.setRGB(0, 0, EditorDefaults.selectEditor_Bnt.getRGB());
 		
 		normal = new BufferedImage(1,1,BufferedImage.TYPE_INT_BGR);
 		normal.setRGB(0, 0, EditorDefaults.defaultEditor_Bnt.getRGB());

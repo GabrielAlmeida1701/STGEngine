@@ -11,6 +11,7 @@ import java.util.UUID;
 import javax.swing.JPanel;
 
 import Base.Main;
+import Editor.WindowsType.BaseWindow;
 import Utils.*;
 
 @SuppressWarnings("serial")
@@ -18,6 +19,9 @@ public class Panel extends JPanel {
 	
 	BufferedImage img;
 	private List<UIElement> elements = new ArrayList<>();
+	private Action action;
+	private Action scdAction;
+	private BaseWindow parent;
 	
 	public boolean hoverElement;
 	
@@ -48,18 +52,28 @@ public class Panel extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
+		g.setFont(EditorDefaults.defaultEditor_font);
+		
 		g.drawImage(img, 0, 0, getWidth(), getHeight(), null);
 		
+		parent.OnDraw(g);
+		
 		if(elements == null || g == null) return;
-		for(UIElement e : elements)
-			e.Draw((Graphics2D)g);
+		try {
+			for(UIElement e : elements)
+				e.Draw((Graphics2D)g);
+		}catch(ConcurrentModificationException e) {}
 	}
 	
 	public void MouseClick(int mBnt){
+		if(mBnt == 1 && action != null) action.run();
+		if(mBnt == 3 && scdAction != null) scdAction.run();
+		
 		if(elements == null) return;
 		try {
 			for(UIElement e : elements)
 				e.MouseClick(mBnt);
+			repaint();
 		}catch(ConcurrentModificationException e) {}
 	}
 	
@@ -76,4 +90,9 @@ public class Panel extends JPanel {
 			
 		}catch(ConcurrentModificationException e) {}
 	}
+	
+	public void SetAction(Action a) { action = a; }
+	public void SetScdAction(Action a) { scdAction = a; }
+	
+	public void SetParent(BaseWindow bw) { parent = bw; }
 }

@@ -1,6 +1,7 @@
 package Editor.WindowsType;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
@@ -63,7 +64,8 @@ public class BaseWindow extends JInternalFrame implements ComponentListener {
 	@Override
 	public void componentShown(ComponentEvent e)
 	{ OnWindowShow(); }
-	
+
+	public void OnDraw(Graphics g) {}
 	
 	protected void OnWindowShow() {}
 	

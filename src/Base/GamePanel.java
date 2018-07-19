@@ -1,7 +1,6 @@
 package Base;
 
 import java.awt.Canvas;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Transparency;
 import java.awt.image.BufferStrategy;
@@ -21,7 +20,6 @@ public class GamePanel extends Canvas implements Runnable {
     Thread thread;
     BufferStrategy bs;
     Graphics2D g;
-    Font fpsFont;
     
     public BufferedImage fnd;
     public boolean running;
@@ -37,7 +35,6 @@ public class GamePanel extends Canvas implements Runnable {
         fnd = MainSystem.LoadSpriteAsset("bg.png");
         configs = GameSettings.GetGameBaseConfigs();
         offset = new Vector2();
-        fpsFont = new Font("Arial", Font.PLAIN, 10);
     }
     
     @Override
@@ -136,7 +133,8 @@ public class GamePanel extends Canvas implements Runnable {
         	//Update and Draw level
         	Game.Update(g);
         	
-        	g.setFont(fpsFont);
+        	if(Main.isEditor) g.clearRect(0, 0, 45, 10);
+        	g.setFont(EditorDefaults.defaultEditor_font);
         	g.drawString("FPS: " + dispFps, 5, 10);
         	
         	//Camera Area

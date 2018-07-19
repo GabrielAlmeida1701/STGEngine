@@ -14,8 +14,8 @@ public class Main {
     	new MainSystem();
     	input = new Input();
     	
-    	System.setProperty("-Dsun.java2d.opengl","false");
-    	System.setProperty("-Dsun.java2d.pmoffscreen","false");
+    	System.setProperty("-Dsun.java2d.opengl","true");
+    	System.setProperty("-Dsun.java2d.pmoffscreen","true");
     	
         JFrame mainWindow;
         if(isEditor)
