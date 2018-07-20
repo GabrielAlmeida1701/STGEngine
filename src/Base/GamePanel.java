@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import CoreGame.Game;
 import CoreGame.Input;
+import Editor.EditorGamePanelnput;
 import Editor.Views.HierarchyView;
 import GameFileSystem.GameBaseConfigs;
 import GameFileSystem.GameSettings;
@@ -26,6 +27,7 @@ public class GamePanel extends Canvas implements Runnable {
     public Vector2 offset;
     
     private GameBaseConfigs configs;
+    private EditorGamePanelnput egpi;
     
     public GamePanel() {
         addMouseListener(Main.input);
@@ -35,6 +37,9 @@ public class GamePanel extends Canvas implements Runnable {
         fnd = MainSystem.LoadSpriteAsset("bg.png");
         configs = GameSettings.GetGameBaseConfigs();
         offset = new Vector2();
+        
+        if(Main.isEditor)
+        	egpi = new EditorGamePanelnput();
     }
     
     @Override
@@ -113,6 +118,7 @@ public class GamePanel extends Canvas implements Runnable {
         	if(Main.isEditor) {
         		CalculateOffsetCtrl();
         		HierarchyView.me.LoadHierarchy();
+        		egpi.Click();
         	}
         	
         	bgPos = Vector2.minus(
@@ -133,20 +139,18 @@ public class GamePanel extends Canvas implements Runnable {
         	//Update and Draw level
         	Game.Update(g);
         	
+        	//Draw FPS Counter
         	if(Main.isEditor) g.clearRect(0, 0, 45, 10);
         	g.setFont(EditorDefaults.defaultEditor_font);
         	g.drawString("FPS: " + dispFps, 5, 10);
         	
-        	//Camera Area
-        	if(Main.isEditor)
+        	if(Main.isEditor) {
 	        	Game.camera.DrawCamera(g, bgPos, configs.StartResolution);
+	        	egpi.Draw(g);
+        	}
         	
         	//g.dispose();
     		bs.show();
-        	
-    		if(Main.isEditor) {
-    			//for(Action a : editorActions) a.run();
-    		}
     		
         	try {
         		long waitTime = (lastLoopTime - System.nanoTime() + OPTIMAL_TIME)/1000000;
