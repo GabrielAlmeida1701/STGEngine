@@ -4,6 +4,7 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
+import CoreGame.WorldMatrix;
 import GameFileSystem.*;
 import Utils.Console;
 
@@ -30,7 +31,8 @@ public class GameWindow extends JFrame {
             setPreferredSize(configs.StartResolution);
             setLocation( (tool.width/2)-(getSize().width/2) , (tool.height/2)-(getSize().height/2) );
         }
-        
+
+        WorldMatrix.SetWorldScale(configs.StartResolution, getSize());
         add(new GamePanel());
         
         pack();

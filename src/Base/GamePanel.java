@@ -12,8 +12,10 @@ import Editor.EditorGamePanelnput;
 import Editor.Views.HierarchyView;
 import GameFileSystem.GameBaseConfigs;
 import GameFileSystem.GameSettings;
-import Test.TestLvl;
-import Utils.*;
+import Test.TstBlankLvl;
+import Utils.EditorDefaults;
+import Utils.MainSystem;
+import Utils.Vector2;
 
 @SuppressWarnings("serial")
 public class GamePanel extends Canvas implements Runnable {
@@ -76,7 +78,7 @@ public class GamePanel extends Canvas implements Runnable {
     public void LoadLevels() {
     	//TEST SPRITE DEV-ONLY
         if(Game.LevelCount() == 0) {
-	        Game.AddLevel(new TestLvl());
+	        Game.AddLevel(new TstBlankLvl());
 	        Game.LoadLevel(0);
 	        
         } else {

@@ -1,6 +1,7 @@
 package Editor.Views;
 
 import Base.GamePanel;
+import CoreGame.WorldMatrix;
 import Editor.WindowsType.BaseWindow;
 import GameFileSystem.GameBaseConfigs;
 import Utils.*;
@@ -13,11 +14,12 @@ public class GameView extends BaseWindow {
 	public GameView(GameBaseConfigs config) {
 		super("Game");
 		
-		gamePanel = new GamePanel();
-		add(gamePanel);
-		
 		setSize(config.StartResolution);
 		setLocation(210,0);
+		WorldMatrix.SetWorldScale(config.StartResolution, getSize());
+		
+		gamePanel = new GamePanel();
+		add(gamePanel);
 	}
 	
 	public void ReloadGame() {

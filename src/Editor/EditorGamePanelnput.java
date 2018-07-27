@@ -24,26 +24,32 @@ public class EditorGamePanelnput {
 		if(!Input.GetMouseButton(0) && !editing) return;
 		if(HierarchyView.selectedTile == null) return;
 		
-		if(xAxis.InBounds(Input.mousePosition) && !editing) {
+		Vector2 mouse = Vector2.minus(
+				Input.mousePosition, 
+				MainSystem.Offset);
+		
+		if(xAxis.InBounds(mouse) && !editing) {
 			editing = true;
 			axis = 1;
 		}
 		
-		if(yAxis.InBounds(Input.mousePosition) && !editing) {
+		/*if(yAxis.InBounds(mouse) && !editing) {
 			editing = true;
 			axis = 2;
-		}
+		}*/
 		
 		if(axis == 1) {
 			HierarchyView.selectedTile
-				.transform.position.x +=
-					Input.GetMouseAxis().x;
+				.transform.position.x =
+					Vector2.add(MainSystem.Offset,
+							Input.mousePosition).x;
 		}
 		
 		if(axis == 2) {
 			HierarchyView.selectedTile
-				.transform.position.y +=
-					Input.GetMouseAxis().y;
+				.transform.position.y =
+					Vector2.add(MainSystem.Offset,
+						Input.mousePosition).y;
 		}
 		
 		if(Input.GetMouseButtonUp(0)) editing = false;
@@ -53,18 +59,26 @@ public class EditorGamePanelnput {
 		Color t = g.getColor();
 		if(HierarchyView.selectedTile == null || editing) return;
 		
+		Vector2 pos = Vector2.add(
+				HierarchyView.selectedTile.transform.position,
+				MainSystem.Offset
+				);
+		
+		xAxis.position = pos;
+		yAxis.position = pos;
+		
 		g.setColor(Color.red);
 		g.fillRect(
-				xAxis.position.x,
-				xAxis.position.y,
+				pos.x,
+				pos.y,
 				xAxis.size.x,
 				xAxis.size.y
 			);
 		
 		g.setColor(Color.green);
 		g.fillRect(
-				yAxis.position.x,
-				yAxis.position.y,
+				pos.x,
+				pos.y,
 				yAxis.size.x,
 				yAxis.size.y
 			);
