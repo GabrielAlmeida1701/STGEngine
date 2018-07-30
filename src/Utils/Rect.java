@@ -16,9 +16,9 @@ public class Rect {
 	}
 	
 	public boolean InBounds(Vector2 vec) {
-		Console.log("Vec "+vec);
-		Console.log("Pos "+position);
-		Console.log("======");
+		/*Console.log("Vec "+vec);
+		Console.log("Pos "+ position + " -- " +size);
+		Console.log("======");*/
 		
 		return
 		(vec.x >= position.x && vec.y >= position.y)

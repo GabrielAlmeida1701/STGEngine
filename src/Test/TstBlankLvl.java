@@ -13,7 +13,7 @@ public class TstBlankLvl extends MapTileCtrl {
 		MapSize = new Vector2(400, 200);
 		
 		Tile tile = new Tile(0, "tst", "tst.png");
-		tile.transform.position = new Vector2(0, 0);
+		tile.transform.position = new Vector2(60, 60);
 		tile.transform.scale = new fVector2(.5f, .5f);
 		
 		frTiles.add(tile);

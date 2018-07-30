@@ -6,6 +6,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
+import javax.swing.Timer;
 import javax.swing.event.MouseInputListener;
 
 import Editor.UI.Panel;
@@ -17,19 +18,22 @@ public class Input implements MouseListener, MouseInputListener, MouseMotionList
 	private static boolean[] mouseBntsDown = new boolean[3];
 	private static boolean[] mouseBntsUp = new boolean[3];
 	
-	public static Vector2 mousePosition = new Vector2();
+	private Timer whellT;
 	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		if(e.getComponent() instanceof Panel)
-			((Panel)e.getComponent()).MouseClick(e.getButton());
-	}
+	public static Vector2 mousePosition = new Vector2();
+	public static int blob;
 	
 	@Override
 	public void mouseEntered(MouseEvent e) {}
 	
 	@Override
 	public void mouseExited(MouseEvent e) {}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getComponent() instanceof Panel)
+			((Panel)e.getComponent()).MouseClick(e.getButton());
+	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
@@ -47,15 +51,26 @@ public class Input implements MouseListener, MouseInputListener, MouseMotionList
 	}
 	
 	@Override
-	public void mouseWheelMoved(MouseWheelEvent e) {}
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		if(whellT == null) {
+			whellT = new Timer(200, (ActionEvent) -> {
+				blob = 0;
+			});
+	        whellT.setRepeats(false);
+	        whellT.setCoalesce(false);
+		}
+		whellT.restart();
+		
+		blob = e.getWheelRotation();
+	}
 	
-	@Override//Mouse Button Down
+	@Override
 	public void mousePressed(MouseEvent e) {
 		mouseBntsDown[e.getButton() - 1] = true;
 		mouseBnts[e.getButton() - 1] = true;
 	}
 
-	@Override//Mouse Button Up
+	@Override
 	public void mouseReleased(MouseEvent e) {
 		mouseBntsUp[e.getButton() - 1] = true;
 		mouseBnts[e.getButton() - 1] = false;
@@ -85,31 +100,31 @@ public class Input implements MouseListener, MouseInputListener, MouseMotionList
 		return res;
 	}
 	
-	private static Vector2 str = new Vector2();
-	private static Vector2 prev = new Vector2();
-	private static Vector2 axis = new Vector2();
+	private static fVector2 str = new fVector2();
+	private static fVector2 prev = new fVector2();
+	private static fVector2 axis = new fVector2();
 	
 	public static void StartAxis() {
-		str = new Vector2(mousePosition.x, mousePosition.y);
-		prev = Vector2.minus(str, mousePosition);
+		str = new fVector2(mousePosition.x, mousePosition.y);
+		prev = fVector2.minus(str, mousePosition);
 		prev.x *= -1;
 	}
 	
 	private static void RunMouseAxis() {
-		Vector2 dif = Vector2.minus(str, mousePosition);
+		fVector2 dif = fVector2.minus(str, mousePosition);
 		dif.x *= -1;
 
 		if(!prev.equals(dif)) {
-			Vector2 dist = Vector2.minus(prev, dif);
-			axis = Vector2.mult(dist, MainSystem.deltaTime);
+			fVector2 dist = fVector2.minus(prev, dif);
+			axis = fVector2.mult(dist, MainSystem.deltaTime);
 			axis.x *= -1;
 			
 			prev = dif;
 		} else
-			axis = Vector2.zero(); 
+			axis = fVector2.zero(); 
 	}
 	
-	public static Vector2 GetMouseAxis() { return axis; }
+	public static fVector2 GetMouseAxis() { return axis; }
 	
 	
 	public static void UpdateInput() {

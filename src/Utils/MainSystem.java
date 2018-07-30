@@ -16,6 +16,7 @@ public class MainSystem {
 	
 	public static double deltaTime;
 	public static Vector2 Offset = Vector2.zero();
+	public static float WorldScale = 1;
 	public static boolean isPlaying;
 	
 	public static BufferedImage LoadSpriteAsset(String sprite) {

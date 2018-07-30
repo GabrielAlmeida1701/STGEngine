@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Components.Component;
+import Utils.MainSystem;
 import Utils.Vector2;
 
 public class Camera {
@@ -46,8 +47,8 @@ public class Camera {
 		g.drawRect(
     			offset.x + transform.position.x,
     			offset.y + transform.position.y,
-    			dim.width,
-    			dim.height
+    			(int)(dim.width * MainSystem.WorldScale),
+    			(int)(dim.height * MainSystem.WorldScale)
 			);
 	}
 }

@@ -24,6 +24,7 @@ public class GamePanel extends Canvas implements Runnable {
     BufferStrategy bs;
     Graphics2D g;
     
+    private BufferedImage editor_fnd;
     public BufferedImage fnd;
     public boolean running;
     public Vector2 offset;
@@ -35,6 +36,9 @@ public class GamePanel extends Canvas implements Runnable {
         addMouseListener(Main.input);
         addMouseMotionListener(Main.input);
         addMouseWheelListener(Main.input);
+        
+        editor_fnd = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
+        editor_fnd.setRGB(0, 0, EditorDefaults.defaultEditor.getRGB());
         
         fnd = MainSystem.LoadSpriteAsset("bg.png");
         configs = GameSettings.GetGameBaseConfigs();
@@ -118,9 +122,13 @@ public class GamePanel extends Canvas implements Runnable {
         	//Update Word Offset
         	Vector2 bgPos;
         	if(Main.isEditor) {
-        		CalculateOffsetCtrl();
+        		if(isFocusOwner()) {
+        			CalculateOffsetCtrl();
+        			egpi.Click();
+        		}
+        		
         		HierarchyView.me.LoadHierarchy();
-        		egpi.Click();
+        		g.drawImage(editor_fnd, 0, 0, getWidth(), getHeight(), null);
         	}
         	
         	bgPos = Vector2.minus(
@@ -133,8 +141,8 @@ public class GamePanel extends Canvas implements Runnable {
         			fnd,
         			bgPos.x,
         			bgPos.y,
-        			Game.MapSize().x,
-        			Game.MapSize().y,
+        			(int) (Game.MapSize().x * MainSystem.WorldScale),
+        			(int) (Game.MapSize().y * MainSystem.WorldScale),
         			null
     			);
         	
@@ -173,7 +181,7 @@ public class GamePanel extends Canvas implements Runnable {
     		repaint();
     	}
     	
-    	if(Input.GetMouseButtonDown(2)) CalcBufferStrategy(1);
-    	if(Input.GetMouseButtonUp(2)) CalcBufferStrategy(2);
+    	/*if(Input.GetMouseButtonDown(2)) CalcBufferStrategy(1);
+    	if(Input.GetMouseButtonUp(2)) CalcBufferStrategy(2);*/
     }
 }
