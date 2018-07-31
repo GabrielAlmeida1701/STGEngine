@@ -18,7 +18,7 @@ public class EditorGamePanelnput {
 		Move, Scale, Rotate
 	}
 	
-	public ToolType tool = ToolType.Move;
+	public ToolType tool = ToolType.Rotate;
 	
 	private Rect xAxis;
 	private Rect yAxis;
@@ -32,15 +32,11 @@ public class EditorGamePanelnput {
 		yAxis = new Rect(100, 100, 5, 35);
 	}
 	
+	float angStart;
 	public void Click() {
 		float s = MainSystem.WorldScale;
 		s -= Input.blob * .01f;
 		MainSystem.WorldScale = s;
-		
-		
-		if(HierarchyView.selectedTile != null)
-			Console.log(Vector2.angle(tile.transform.position, Input.mousePosition));
-		
 		
 		if(!Input.GetMouseButton(0) && !editing) return;
 		if(HierarchyView.selectedTile == null) return;
@@ -96,7 +92,20 @@ public class EditorGamePanelnput {
 	}
 	
 	private void Rotate() {
+		if(Input.GetMouseButtonDown(0)) {
+			angStart = Vector2.angle(xAxis.position,
+					Input.mousePosition);
+			
+			Console.log("donw =>" +angStart);
+		}
 		
+		if(Input.GetMouseButton(0)) {
+			float angEnd = Vector2.angle(xAxis.position,
+					Input.mousePosition);
+			
+			HierarchyView.selectedTile
+				.transform.angle = -angEnd;
+		}
 	}
 	
 	private void Scale() {
