@@ -6,11 +6,7 @@ import java.awt.Graphics2D;
 import CoreGame.Input;
 import Editor.Views.HierarchyView;
 import STG_Object.Tile;
-import Utils.Console;
-import Utils.EditorDefaults;
-import Utils.MainSystem;
-import Utils.Rect;
-import Utils.Vector2;
+import Utils.*;
 
 public class EditorGamePanelnput {
 	
@@ -18,7 +14,7 @@ public class EditorGamePanelnput {
 		Move, Scale, Rotate
 	}
 	
-	public ToolType tool = ToolType.Rotate;
+	public ToolType tool = ToolType.Move;
 	
 	private Rect xAxis;
 	private Rect yAxis;
@@ -93,18 +89,19 @@ public class EditorGamePanelnput {
 	
 	private void Rotate() {
 		if(Input.GetMouseButtonDown(0)) {
-			angStart = Vector2.angle(xAxis.position,
-					Input.mousePosition);
-			
-			Console.log("donw =>" +angStart);
+			angStart = HierarchyView.selectedTile
+					.transform.angle;
 		}
 		
 		if(Input.GetMouseButton(0)) {
 			float angEnd = Vector2.angle(xAxis.position,
 					Input.mousePosition);
 			
+			float angle = (angStart - angEnd);
+			if(angle < 0) angle += 180; 
+			
 			HierarchyView.selectedTile
-				.transform.angle = -angEnd;
+				.transform.angle = angle;
 		}
 	}
 	

@@ -16,6 +16,7 @@ public class Tile {
     public BufferedImage sprite;
     public boolean collider;
     public boolean useGravity;
+    public Tile parent;
     public String name;
     
     public boolean isSelected;
@@ -57,6 +58,8 @@ public class Tile {
     public void Update(){
         for(Component comp : components)
         	if(comp.enable) comp.Update();
+        
+        if(transform.angle > 360) transform.angle = 0;
     }
     
     public void SetPosition(int x, int y){
@@ -66,6 +69,10 @@ public class Tile {
     
     public void SetPosition(Vector2 position){
     	transform.position = position;
+    }
+    
+    public void SetParent(Tile tile) {
+    	parent = tile;
     }
     
     public void Flip(){

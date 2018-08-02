@@ -50,6 +50,10 @@ public class fVector2 {
 		return new fVector2( (int)(v1.x / v2), (int)(v1.y / v2));
 	}
 	
+	public static fVector2 copy(fVector2 org) {
+		return new fVector2(org.x, org.y);
+	}
+	
 	public static fVector2 zero() {
 		return new fVector2();
 	}
@@ -62,8 +66,12 @@ public class fVector2 {
 		return (v1.x * v2.x) + (v1.y * v2.y);
 	}
 	
+	public static float det(fVector2 v1, fVector2 v2) {
+		return (v1.x * v2.x) - (v1.y * v2.y);
+	}
+	
 	public static float angle(fVector2 v1, fVector2 v2) {
-		return (dot(v1, v2) / (v1.magnitude() * v2.magnitude())) * 57.2958f;
+		return (float)(Math.atan2(det(v1, v2), dot(v1, v2)))*180;
 	}
 	
 	

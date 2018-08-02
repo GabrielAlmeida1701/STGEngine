@@ -64,7 +64,6 @@ public class Vector2 {
 	
 	public static float angle(Vector2 v1, Vector2 v2) {
 		return (float)(Math.atan2(det(v1, v2), dot(v1, v2)))*180;
-		//return (dot(v1, v2) / (v1.magnitude() * v2.magnitude()));
 	}
 	
 	
