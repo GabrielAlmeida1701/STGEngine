@@ -1,5 +1,7 @@
 package STG.Components;
 
+import java.awt.Graphics;
+
 import STG.STG_Object.Tile;
 import STG.STG_Object.Transform;
 
@@ -13,6 +15,8 @@ public abstract class Component {
 	public abstract void Start() ;
 	
 	public abstract void Update() ;
+	
+	public void DrawEditor(Graphics g) {}
 	
 	public void SetTile(Tile tile) {
 		this.tile = tile;
@@ -30,5 +34,5 @@ public abstract class Component {
 		String s = getClass().getName();
 		
 		return s.equals(obj.getClass().getName());
-	} 
+	}
 }
