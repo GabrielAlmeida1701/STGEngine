@@ -3,10 +3,10 @@ package Editor;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import CoreGame.Input;
 import Editor.Views.HierarchyView;
-import STG_Object.Tile;
-import Utils.*;
+import STG.CoreGame.Input;
+import STG.STG_Object.Tile;
+import STG.Utils.*;
 
 public class EditorGamePanelnput {
 	
@@ -70,20 +70,22 @@ public class EditorGamePanelnput {
 		if(Input.GetMouseButtonDown(0)) {
 			t = Vector2.divide(
 					Vector2.minus(
-							Vector2.add(tile.transform.position, MainSystem.Offset),
+							Vector2.add(tile.transform.Position(), MainSystem.Offset),
 							Input.mousePosition),
 					MainSystem.WorldScale
 				);
 		}
 		
 		if(axis == 1) {
-			tile.transform.position.x =
-				-(int)((Vector2.minus(MainSystem.Offset, Input.mousePosition)).x / MainSystem.WorldScale);
+			Vector2 p = tile.transform.Position();
+			p.x = -(int)((Vector2.minus(MainSystem.Offset, Input.mousePosition)).x / MainSystem.WorldScale); 
+			tile.transform.Position(p);
 		}
 		
 		if(axis == 2) {
-			tile.transform.position.y =
-				-(int)((Vector2.minus(MainSystem.Offset, Input.mousePosition)).y / MainSystem.WorldScale);
+			Vector2 p = tile.transform.Position();
+			p.y = -(int)((Vector2.minus(MainSystem.Offset, Input.mousePosition)).y / MainSystem.WorldScale);
+			tile.transform.Position(p);
 		}
 	}
 	
@@ -106,15 +108,11 @@ public class EditorGamePanelnput {
 	}
 	
 	private void Scale() {
-		if(axis == 1) {
-			HierarchyView.selectedTile.transform.scale.x +=
-				(Input.GetMouseAxis().x) * .01f;
-		}
+		if(axis == 1)
+			HierarchyView.selectedTile.transform.scale.x += (Input.GetMouseAxis().x) * .01f;
 		
-		if(axis == 2) {
-			HierarchyView.selectedTile.transform.scale.y +=
-				(Input.GetMouseAxis().y) * .01f;
-		}
+		if(axis == 2)
+			HierarchyView.selectedTile.transform.scale.y += (Input.GetMouseAxis().y) * .01f;
 	}
 	
 	public void Draw(Graphics2D g) {
@@ -123,7 +121,7 @@ public class EditorGamePanelnput {
 		tile = HierarchyView.selectedTile;
 		
 		Vector2 pos = Vector2.add(
-				Vector2.mult(tile.transform.position, MainSystem.WorldScale),
+				Vector2.mult(tile.transform.Position(), MainSystem.WorldScale),
 				MainSystem.Offset
 			);
 		

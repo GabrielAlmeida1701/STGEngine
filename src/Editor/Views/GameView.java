@@ -1,10 +1,10 @@
 package Editor.Views;
 
-import Base.GamePanel;
-import CoreGame.WorldMatrix;
 import Editor.WindowsType.BaseWindow;
-import GameFileSystem.GameBaseConfigs;
-import Utils.*;
+import STG.Base.GamePanel;
+import STG.CoreGame.WorldMatrix;
+import STG.GameFileSystem.GameBaseConfigs;
+import STG.Utils.*;
 
 @SuppressWarnings("serial")
 public class GameView extends BaseWindow {

@@ -6,11 +6,11 @@ import java.util.List;
 
 import javax.swing.JButton;
 
-import CoreGame.Game;
-import CoreGame.MapTileCtrl;
 import Editor.UI.Button;
 import Editor.WindowsType.Window;
-import STG_Object.Tile;
+import STG.CoreGame.Game;
+import STG.CoreGame.MapTileCtrl;
+import STG.STG_Object.Tile;
 
 @SuppressWarnings("serial")
 public class HierarchyView extends Window {

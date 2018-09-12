@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import Utils.*;
+import STG.Utils.*;
 
 public class Button extends UIElement {
 

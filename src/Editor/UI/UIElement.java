@@ -3,8 +3,8 @@ package Editor.UI;
 import java.awt.Graphics2D;
 import java.util.UUID;
 
-import CoreGame.Input;
-import Utils.*;
+import STG.CoreGame.Input;
+import STG.Utils.*;
 
 public class UIElement {
 

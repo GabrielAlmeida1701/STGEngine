@@ -10,9 +10,9 @@ import java.util.UUID;
 
 import javax.swing.JPanel;
 
-import Base.Main;
 import Editor.WindowsType.BaseWindow;
-import Utils.*;
+import STG.Base.Main;
+import STG.Utils.*;
 
 @SuppressWarnings("serial")
 public class Panel extends JPanel {
